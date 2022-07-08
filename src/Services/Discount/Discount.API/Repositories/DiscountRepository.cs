@@ -65,7 +65,7 @@ namespace Discount.API.Repositories
                 _configuration.GetValue<string>("DatabaseSettings:ConnectionString"));
 
             var affected = await connection
-                .ExecuteAsync("Delete FROM Coupon WHERE ProductName = @ProductName", new { ProductName = productName });
+                .ExecuteAsync("DELETE FROM Coupon WHERE ProductName = @ProductName", new { ProductName = productName });
 
             if (affected == 0)
                 return false;
