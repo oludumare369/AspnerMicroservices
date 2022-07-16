@@ -22,7 +22,7 @@ namespace Discount.Grpc.Services
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public override async Task<CouponModel> GetDiscount(CreateDiscountRequest request, ServerCallContext context)
+        public override async Task<CouponModel> GetDiscount(GetDiscountRequest request, ServerCallContext context)
         {
             var coupon = await _repository.GetDiscount(request.ProductName);
             if(coupon == null)
