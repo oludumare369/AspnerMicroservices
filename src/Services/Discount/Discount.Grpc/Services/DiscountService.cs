@@ -13,9 +13,9 @@ namespace Discount.Grpc.Services
     {
         private readonly IDiscountRepository _repository;
         private readonly IMapper _mapper;
-        private readonly ILogger _logger;
+        private readonly ILogger<DiscountService> _logger;
 
-        public DiscountService(IDiscountRepository repository, IMapper mapper, ILogger logger)
+        public DiscountService(IDiscountRepository repository, IMapper mapper, ILogger<DiscountService> logger)
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
@@ -27,7 +27,7 @@ namespace Discount.Grpc.Services
             var coupon = await _repository.GetDiscount(request.ProductName);
             if(coupon == null)
             {
-                throw new RpcException(new Status(StatusCode.NotFound, $"Discount with ProduceName={request.ProductName} is not found."));
+                throw new RpcException(new Status(StatusCode.NotFound, $"Discount with ProductName={request.ProductName} is not found."));
             }
 
             _logger.LogInformation("Discount is retrieved for ProductName: {productName}, Amount: {amount}", coupon.ProductName, coupon.Amount);
